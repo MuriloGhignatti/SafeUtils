@@ -1,13 +1,14 @@
+
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.6.10"
+    kotlin("jvm")
     `maven-publish`
     application
 }
 
 group = "me.muriloghignatti"
-version = "1.0-SNAPSHOT"
+version = "1.0.0"
 
 repositories {
     maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
