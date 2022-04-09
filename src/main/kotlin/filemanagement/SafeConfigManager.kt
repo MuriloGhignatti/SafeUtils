@@ -4,6 +4,7 @@ import org.bukkit.Bukkit
 import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.configuration.file.YamlConfiguration
 import java.io.File
+import java.io.InputStream
 
 abstract class SafeConfigManager(fileName: String, pluginName: String) {
     private val file: File
@@ -14,12 +15,16 @@ abstract class SafeConfigManager(fileName: String, pluginName: String) {
         file = File(Bukkit.getServer().pluginManager.getPlugin(pluginName)?.dataFolder, fileName)
         if (!file.exists())
             file.createNewFile()
-        config = loadCustomFile()
+        config = loadCustomFile(this.file)
         generateDefaults()
     }
 
-    private fun loadCustomFile(): FileConfiguration{
+    fun loadCustomFile(file: File): FileConfiguration{
         return YamlConfiguration.loadConfiguration(file)
+    }
+
+    fun get(): FileConfiguration{
+        return config;
     }
 
     fun save(){
@@ -27,7 +32,7 @@ abstract class SafeConfigManager(fileName: String, pluginName: String) {
     }
 
     fun reload(){
-        config = loadCustomFile()
+        config = loadCustomFile(this.file)
     }
 
     abstract fun generateDefaults()
